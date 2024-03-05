@@ -6,10 +6,15 @@ class register extends StatefulWidget {
   @override
   State<register> createState() => _registerState();
 }
-
+TextEditingController txtname = TextEditingController();
+TextEditingController txtemail = TextEditingController();
+TextEditingController txtpwd = TextEditingController();
+TextEditingController txtconpwd = TextEditingController();
+bool conpwds=true;
 class _registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
+    String? name,email,pwd,conpwd;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -43,6 +48,7 @@ class _registerState extends State<register> {
                   child: Container(
                     color: Color(0xfff7f8f9),
                     child: TextField(
+                      controller: txtname,
                       textInputAction: TextInputAction.newline,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -70,6 +76,7 @@ class _registerState extends State<register> {
                   child: Container(
                     color: Color(0xfff7f8f9),
                     child: TextField(
+                      controller: txtemail,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.newline,
                       decoration: InputDecoration(
@@ -98,6 +105,9 @@ class _registerState extends State<register> {
                   child: Container(
                     color: Color(0xfff7f8f9),
                     child: TextField(
+                      controller: txtpwd,
+                      textInputAction: TextInputAction.newline,
+                      keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         label: Text('Password',style: TextStyle(color: Colors.grey),),
                         // hintText: 'Enter the create password',
@@ -124,10 +134,11 @@ class _registerState extends State<register> {
                   child: Container(
                     color: Color(0xfff7f8f9),
                     child: TextField(
+                      textInputAction: TextInputAction.newline,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller:txtconpwd,
                       decoration: InputDecoration(
                         label: Text('Confirm password',style: TextStyle(color: Colors.grey),),
-                        // hintText: 'Enter the confirm Password',
-                        // suffixIcon: Icon(Icons.remove_red_eye_sharp),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(color: Color(0xffe8ecf4),width: 1),
@@ -136,31 +147,43 @@ class _registerState extends State<register> {
                           borderRadius: BorderRadius.circular(5),
                           borderSide: BorderSide(color: Color(0xffe8ecf4)),
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
+                        // errorBorder: (!conpwds)?OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(5),
+                        //   borderSide: BorderSide(color: Colors.red),
+                        // ):
+                        // OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(5),
+                        //   borderSide: BorderSide(color: Color(0xffe8ecf4)),
+                        // ),
+                        // errorText: (!conpwds)?'incorrect confirm password':'',
                       ),
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 205.0),
-                //   child: Text('Forget Password ?',style: TextStyle(color: Colors.grey),),
-                // ),
                 SizedBox(height: 30,),
-                Container(
-                  height: 60,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    color: Color(0xff1e232c),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                InkWell(
+                  onTap: () {
+                    email=txtemail.toString();
+                    name=txtname.toString();
+                    pwd=txtpwd.toString();
+                    conpwd=txtconpwd.toString();
+
+                    setState(() {
+                    });
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      color: Color(0xff1e232c),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: Center(
+                        child: Text(
+                          'Register',
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ),
-                  child: Center(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
-                      )),
                 ),
                 SizedBox(height:20,),
                 Row(
